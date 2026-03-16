@@ -11,15 +11,17 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+const base = import.meta.env.BASE_URL;
 const { Content } = await render(entry);
+const imageSrc = entry.data.image ? `${base}/${entry.data.image.replace(/^\//, '')}` : '';
 ---
 
 <Layout title={`${entry.data.title} | Aidan Rickert`}>
   <article class="project-detail">
-    <a href="/" class="back-link">← Back to home</a>
+    <a href={base} class="back-link">← Back to home</a>
     <div class="project-layout">
       <aside class="project-aside">
-        <img src={entry.data.image} alt={entry.data.title} width="800" height="450" class="project-image" />
+        <img src={imageSrc} alt={entry.data.title} width="800" height="450" class="project-image" />
       </aside>
       <h1>{entry.data.title}</h1>
       <div class="project-body">

@@ -20,7 +20,7 @@ const miniProjects = sortProjects(rawProjects.filter((p) => p.data.tags?.include
 
 <Layout title="Aidan Rickert | Portfolio">
   <section class="hero">
-    <p class="hero-intro">Hi! Find selected projects here, and learn more about me on the <a href="/about">About</a> page. This website is also very new and actively being worked on, let me know if you have suggestions!</p>
+    <p class="hero-intro">Hi! Find selected projects here, and learn more about me on the <a href={`${import.meta.env.BASE_URL}/about`}>About</a> page. This website is also very new and actively being worked on, let me know if you have suggestions!</p>
   </section>
 
   <section class="skills-section">

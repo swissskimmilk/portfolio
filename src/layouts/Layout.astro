@@ -1,13 +1,15 @@
 ---
 import site from '../data/site.json';
 
-// Formspree: replace YOUR_FORM_ID with your form ID from https://formspree.io
 const formAction = 'https://formspree.io/f/xqeydrrr';
+const base = import.meta.env.BASE_URL;
 
 interface Props {
   title?: string;
 }
 const { title = 'Aidan Rickert | Portfolio' } = Astro.props;
+
+const bannerUrl = site.bannerImage ? `${base}/${site.bannerImage.replace(/^\//, '')}` : '';
 ---
 
 <!doctype html>
@@ -15,9 +17,9 @@ const { title = 'Aidan Rickert | Portfolio' } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Aidan Rickert - PCB & Analog Integrated Circuits" />
+    <meta name="description" content="Aidan Rickert - PCBs & Analog Integrated Circuits" />
     <title>{title}</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
@@ -42,16 +44,16 @@ const { title = 'Aidan Rickert | Portfolio' } = Astro.props;
     </style>
   </head>
   <body>
-    <header class="banner" style={site.bannerImage ? `--banner-image: url('${site.bannerImage}')` : ''}>
+    <header class="banner" style={bannerUrl ? `--banner-image: url('${bannerUrl}')` : ''}>
       <div class="banner-overlay" aria-hidden="true"></div>
       <div class="banner-inner">
         <div class="banner-hero">
-          <a href="/" class="banner-name">{site.name}</a>
+          <a href={base} class="banner-name">{site.name}</a>
           <p class="banner-tagline">{site.tagline}</p>
         </div>
         <nav class="nav">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
+          <a href={base}>Home</a>
+          <a href={`${base}/about`}>About</a>
         </nav>
       </div>
     </header>
