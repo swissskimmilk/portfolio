@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getEntry, render } from 'astro:content';
+
+const entry = await getEntry('about', 'about');
+if (!entry) {
+  throw new Error('About entry not found. Ensure src/content/about.md exists.');
+}
+const { Content } = await render(entry);
+---
+
+<Layout title={`About | ${entry.data.title}`}>
+  <article class="about-page">
+    {entry.data.avatar && (
+      <img src={entry.data.avatar} alt="" width="120" height="120" class="about-avatar" />
+    )}
+    <h1>{entry.data.title}</h1>
+    <p class="about-bio">{entry.data.bio}</p>
+    <div class="about-body">
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .about-page {
+    max-width: 100%;
+  }
+  .about-avatar {
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    border: 2px solid var(--color-border);
+  }
+  .about-page h1 {
+    margin: 0 0 0.5rem;
+    font-size: 1.75rem;
+  }
+  .about-bio {
+    margin: 0 0 1.5rem;
+    color: var(--color-muted);
+    font-size: 1.05rem;
+  }
+  .about-body :global(p) {
+    margin: 0 0 1rem;
+  }
+</style>

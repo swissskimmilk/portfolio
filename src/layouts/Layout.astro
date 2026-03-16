@@ -1,0 +1,246 @@
+---
+import site from '../data/site.json';
+
+// Formspree: replace YOUR_FORM_ID with your form ID from https://formspree.io
+const formAction = 'https://formspree.io/f/xqeydrrr';
+
+interface Props {
+  title?: string;
+}
+const { title = 'Aidan Rickert | Portfolio' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Aidan Rickert - PCB & Analog Integrated Circuits" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+    <style is:global>
+      :root {
+        --color-bg: #080814;
+        --color-surface: #1a1a2e;
+        --color-surface-elevated: #16213e;
+        --color-border: #2a2a4a;
+        --color-text: #e8ecf4;
+        --color-muted: #94a3b8;
+        --color-accent: #60a5fa;
+        --font-sans: 'DM Sans', system-ui, sans-serif;
+        --content-max-width: min(1400px, 94vw);
+        --content-padding: clamp(1rem, 3vw, 2rem);
+      }
+      * { box-sizing: border-box; }
+      html { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+      body { margin: 0; min-height: 100vh; }
+      a { color: var(--color-accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <header class="banner" style={site.bannerImage ? `--banner-image: url('${site.bannerImage}')` : ''}>
+      <div class="banner-overlay" aria-hidden="true"></div>
+      <div class="banner-inner">
+        <div class="banner-hero">
+          <a href="/" class="banner-name">{site.name}</a>
+          <p class="banner-tagline">{site.tagline}</p>
+        </div>
+        <nav class="nav">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <h2 id="contact">Get in touch</h2>
+        <form class="contact-form" id="contact-form" data-action={formAction}>
+          <input type="hidden" name="_subject" value="Portfolio contact form" />
+          <label for="contact-name">Name</label>
+          <input id="contact-name" name="name" type="text" required />
+          <label for="contact-email">Email</label>
+          <input id="contact-email" name="email" type="email" required />
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" rows="4" required></textarea>
+          <p class="contact-form-status" id="contact-form-status" aria-live="polite" hidden></p>
+          <button type="submit" id="contact-form-submit">Send</button>
+        </form>
+      </div>
+    </footer>
+
+    <style>
+      .banner {
+        position: relative;
+        min-height: 260px;
+        padding: 2rem var(--content-padding);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--color-surface);
+        background-image: var(--banner-image, none);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        border-bottom: 1px solid var(--color-border);
+      }
+      .banner-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(15, 15, 35, 0.6) 0%, rgba(15, 15, 35, 0.85) 100%);
+        pointer-events: none;
+      }
+      .banner-inner {
+        position: relative;
+        z-index: 1;
+        max-width: var(--content-max-width);
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .banner-hero {
+        margin-bottom: 1.25rem;
+      }
+      .banner-name {
+        display: inline-block;
+        font-size: 3.25rem;
+        font-weight: 700;
+        color: var(--color-text);
+        text-decoration: none;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        letter-spacing: -0.02em;
+      }
+      .banner-name:hover { text-decoration: underline; }
+      .banner-tagline {
+        margin: 0;
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: var(--color-text);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        opacity: 0.9;
+      }
+      .nav {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: rgba(15, 15, 35, 0.85);
+        border: 1px solid var(--color-border);
+        border-radius: 999px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        width: fit-content;
+        margin: 0 auto;
+      }
+      .nav a {
+        color: var(--color-text);
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 0.5rem 1.25rem;
+        border-radius: 999px;
+        transition: background 0.2s, color 0.2s;
+      }
+      .nav a:hover {
+        background: var(--color-accent);
+        color: #0f0f23;
+        text-decoration: none;
+      }
+      .main {
+        max-width: var(--content-max-width);
+        margin: 0 auto;
+        padding: 2rem var(--content-padding) 4rem;
+      }
+      .footer {
+        background: var(--color-surface);
+        border-top: 1px solid var(--color-border);
+        padding: 2rem 0 4rem;
+      }
+      .footer-inner {
+        max-width: var(--content-max-width);
+        margin: 0 auto;
+        padding: 0 var(--content-padding);
+      }
+      .footer h2 {
+        margin: 0 0 1rem;
+        font-size: 1.25rem;
+      }
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        max-width: 400px;
+      }
+      .contact-form label {
+        font-size: 0.9rem;
+        color: var(--color-muted);
+      }
+      .contact-form input,
+      .contact-form textarea {
+        padding: 0.5rem 0.75rem;
+        font: inherit;
+        background: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-radius: 6px;
+        color: var(--color-text);
+      }
+      .contact-form button {
+        padding: 0.6rem 1.2rem;
+        font: inherit;
+        font-weight: 600;
+        background: var(--color-accent);
+        color: #0f0f23;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        align-self: flex-start;
+      }
+      .contact-form button:hover {
+        opacity: 0.9;
+      }
+      .contact-form-status { margin: 0; font-size: 0.9rem; }
+      .contact-form-status.success { color: #86efac; }
+      .contact-form-status.error { color: #fca5a5; }
+      .contact-form button:disabled { opacity: 0.6; cursor: not-allowed; }
+    </style>
+    <script>
+      const form = document.getElementById('contact-form');
+      const status = document.getElementById('contact-form-status');
+      const submitBtn = document.getElementById('contact-form-submit');
+      if (form && status && submitBtn) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          status.hidden = true;
+          status.className = 'contact-form-status';
+          submitBtn.disabled = true;
+          const action = form.getAttribute('data-action');
+          const body = new FormData(form);
+          try {
+            const res = await fetch(action, { method: 'POST', body, headers: { Accept: 'application/json' } });
+            const data = await res.json().catch(() => ({}));
+            if (res.ok) {
+              status.textContent = 'Thanks! Your message was sent.';
+              status.className = 'contact-form-status success';
+              form.reset();
+            } else {
+              status.textContent = data.error || 'Something went wrong. Please try again.';
+              status.className = 'contact-form-status error';
+            }
+          } catch {
+            status.textContent = 'Something went wrong. Please try again.';
+            status.className = 'contact-form-status error';
+          }
+          status.hidden = false;
+          submitBtn.disabled = false;
+        });
+      }
+    </script>
+  </body>
+</html>

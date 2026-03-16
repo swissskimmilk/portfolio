@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import ProjectCard from '../components/ProjectCard.astro';
+import skills from '../data/skills.json';
+
+const rawProjects = await getCollection('projects');
+const sortProjects = (list: typeof rawProjects) =>
+  [...list].sort((a, b) => {
+    const orderA = a.data.order ?? 999;
+    const orderB = b.data.order ?? 999;
+    if (orderA !== orderB) return orderA - orderB;
+    const dateA = a.data.pubDate?.valueOf() ?? 0;
+    const dateB = b.data.pubDate?.valueOf() ?? 0;
+    return dateB - dateA;
+  });
+const projects = sortProjects(rawProjects.filter((p) => !p.data.tags?.includes('Small')));
+const miniProjects = sortProjects(rawProjects.filter((p) => p.data.tags?.includes('Small')));
+---
+
+<Layout title="Aidan Rickert | Portfolio">
+  <section class="hero">
+    <p class="hero-intro">Hi! Find selected projects here, and learn more about me on the <a href="/about">About</a> page. This website is also very new and actively being worked on, let me know if you have suggestions!</p>
+  </section>
+
+  <section class="skills-section">
+    <h2>Skills</h2>
+    <div class="skills-subsections">
+      {Object.entries(skills).map(([subsection, items]) => (
+        <div class="skills-subsection">
+          <h3 class="skills-subsection-title">{subsection}</h3>
+          <ul class="skills-list">
+            {items.map((skill) => (
+              <li><span class="skill-tag">{skill}</span></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      {projects.map((entry) => (
+        <ProjectCard entry={entry} />
+      ))}
+    </div>
+  </section>
+
+  <section class="projects-section mini-projects-section">
+    <h2>Mini Projects</h2>
+    <div class="projects-grid">
+      {miniProjects.map((entry) => (
+        <ProjectCard entry={entry} />
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+  .hero-intro {
+    margin: 0 auto;
+    max-width: 42ch;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--color-text);
+  }
+  .hero-intro a {
+    font-weight: 600;
+  }
+  .skills-section {
+    margin-bottom: 2.5rem;
+  }
+  .skills-section h2,
+  .projects-section h2 {
+    margin: 0 0 1rem;
+    font-size: 1.75rem;
+    color: #fff;
+  }
+  .mini-projects-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .skills-subsections {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .skills-subsection {
+    min-width: 200px;
+  }
+  .skills-subsection-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .skills-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .skill-tag {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-size: 0.9rem;
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  @media (max-width: 700px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

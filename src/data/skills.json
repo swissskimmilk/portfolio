@@ -1,0 +1,22 @@
+{
+  "Analog & Mixed-Signal": [
+    "IC Design",
+    "Power Electronics",
+    "Noise Analysis",
+    "Sensor Front-Ends"
+  ],
+  "PCB & ECAD": [
+    "Altium",
+    "Cadence Virtuoso / Spectre",
+    "KiCad",
+    "Multi-layer Layout",
+    "Signal Integrity"
+  ],
+  "Software & Embedded": [
+    "Python",
+    "C/C++",
+    "Verilog",
+    "ESP32 / PlatformIO",
+    "SPI / RS-485 / I2C"
+  ]
+}

@@ -1,0 +1,80 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((entry) => ({
+    params: { slug: entry.data.slug ?? entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Layout title={`${entry.data.title} | Aidan Rickert`}>
+  <article class="project-detail">
+    <a href="/" class="back-link">← Back to home</a>
+    <div class="project-layout">
+      <aside class="project-aside">
+        <img src={entry.data.image} alt={entry.data.title} width="800" height="450" class="project-image" />
+      </aside>
+      <h1>{entry.data.title}</h1>
+      <div class="project-body">
+        <Content />
+      </div>
+    </div>
+  </article>
+  <script is:inline src="https://viewer.altium.com/client/static/js/embed.js"></script>
+</Layout>
+
+<style>
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+  .back-link:hover {
+    color: var(--color-text);
+  }
+  .project-layout {
+    overflow: auto;
+  }
+  .project-aside {
+    float: right;
+    width: min(45%, 480px);
+    margin: 0 0 1.5rem 1.5rem;
+  }
+  .project-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    display: block;
+  }
+  .project-layout h1 {
+    margin: 0 0 1rem;
+    font-size: 1.75rem;
+  }
+  @media (max-width: 700px) {
+    .project-aside {
+      float: none;
+      width: 100%;
+      margin: 0 0 1.5rem;
+    }
+  }
+  .project-body :global(h2) {
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.25rem;
+  }
+  .project-body :global(p) {
+    margin: 0 0 1rem;
+  }
+  .project-body :global(ul) {
+    margin: 0 0 1rem;
+    padding-left: 1.5rem;
+  }
+</style>
