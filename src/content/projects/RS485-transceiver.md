@@ -11,7 +11,7 @@ linkToPage: true
 ## Intro 
 A simple PCB designed to take in information from a 3.3V motor encoder breakout that is either I2C or SPI based, and transmit readings over RS485. Since the pins can be multiplexed, can read from anything that runs off 3.3V and uses three GPIO or less. This project was a precursor to the [motor driver](/portfolio/projects/motor-driver), which has the same functionality as this board, but with the ability to drive motors. 
 
-**Credit to Rohith Chikka for helping with the schematic for this board**
+**Credit to Rohith Chikka for helping with the schematic for this board, and bringing it up**
 
 ## Features 
 - Designed to be powered from a 2S LiPo or similar 
