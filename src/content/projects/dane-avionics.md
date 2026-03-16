@@ -21,7 +21,7 @@ The goal of DAN-E is to use four pneumatic actuators, one on each side of a rock
 -32MB QSPI storage to store data during flight, since there is no RF solution included 
 
 <div class="altium-ecad-viewer"
-  data-project-src="/designs/dane-avionics.zip"
+  data-project-src="https://swissskimmilk.github.io/portfolio/designs/dane-avionics.zip"
   data-active-view="3d"
   data-enabled-views="sch,pcb,3d,bom"
   style="border-radius: 8px; height: 500px; overflow: hidden; max-width: 1280px; max-height: 700px; box-sizing: border-box;">
