@@ -23,6 +23,7 @@ This PCB was designed to test a variety of motors to control the Diablo engine's
 
 - Uses a spare internal comparator in the DRV8313 to trigger an interrupt when an adjustable current limit is reached 
 
+## Altium Viewer
 <div class="altium-ecad-viewer"
   data-project-src="https://swissskimmilk.github.io/portfolio/designs/motor-driver.zip"
   data-active-view="3d"
