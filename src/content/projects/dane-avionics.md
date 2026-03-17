@@ -27,7 +27,7 @@ The goal of DAN-E is to use four pneumatic actuators, one on each side of a rock
 
 ## Altium Viewer
 <div class="altium-ecad-viewer"
-  data-project-src="https://swissskimmilk.github.io/portfolio/designs/dane-avionics.zip"
+  data-project-src="https://swissskimmilk.github.io/portfolio/designs/dane-avionics.zip?v=2"
   data-active-view="3d"
   data-enabled-views="sch,pcb,3d,bom"
   style="border-radius: 8px; height: 500px; overflow: hidden; max-width: 1280px; max-height: 700px; box-sizing: border-box;">

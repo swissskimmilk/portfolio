@@ -13,7 +13,7 @@ This is a simple PCB with the purpose of telemetering the temperature, humidity,
 
 ## Altium Viewer
 <div class="altium-ecad-viewer"
-  data-project-src="https://swissskimmilk.github.io/portfolio/designs/daq-environmental.zip"
+  data-project-src="https://swissskimmilk.github.io/portfolio/designs/daq-environmental.zip?v=2"
   data-active-view="3d"
   data-enabled-views="sch,pcb,3d,bom"
   style="border-radius: 8px; height: 500px; overflow: hidden; max-width: 1280px; max-height: 700px; box-sizing: border-box;">
